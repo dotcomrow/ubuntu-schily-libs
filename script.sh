@@ -9,4 +9,4 @@ cd schily-2021-09-18
 sudo make
 sudo make install
 
-ls -al 
+ls -al mkisofs/OBJ/x86_64-linux-gcc 
