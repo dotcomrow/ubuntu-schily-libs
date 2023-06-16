@@ -1,0 +1,32 @@
+name: Build Custom ISO Image
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version'
+        required: true
+        type: string
+  repository_dispatch:
+    types: [iso_built_cached]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+    permissions: write-all
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Pull gateway machine Image
+        run: |
+          script.sh
+          
