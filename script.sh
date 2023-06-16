@@ -8,3 +8,5 @@ tar -xvf schily-2021-09-18.tar.bz2
 cd schily-2021-09-18
 sudo make
 sudo make install
+
+ls -al schily-2021-09-18/mkisofs/OBJ/x86_64-linux-gcc
