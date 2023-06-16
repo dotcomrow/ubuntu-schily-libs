@@ -9,4 +9,4 @@ cd schily-2021-09-18
 sudo make
 sudo make install
 
-ls -al schily-2021-09-18/mkisofs/OBJ/
+ls -al 
