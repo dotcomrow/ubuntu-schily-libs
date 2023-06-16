@@ -11,6 +11,6 @@ sudo make install
 
 ls -al mkisofs/OBJ/x86_64-linux-gcc/mkisofs
 
-cp mkisofs/OBJ/x86_64-linux-gcc/mkisofs /usr/bin/mkisofs
+sudo cp mkisofs/OBJ/x86_64-linux-gcc/mkisofs /usr/bin/mkisofs
 mkisofs --version
  
