@@ -6,13 +6,6 @@ name: Build Custom ISO Image
 # documentation.
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version'
-        required: true
-        type: string
-  repository_dispatch:
-    types: [iso_built_cached]
 
 jobs:
   build:
