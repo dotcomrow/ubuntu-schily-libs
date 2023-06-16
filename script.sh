@@ -1,7 +1,8 @@
 sudo apt remove mkisofs
 sudo apt remove genisoimage
 
-sudo apt install gcc g++ isohybrid -y
+sudo apt install gcc g++ syslinux-utils -y
+isohybrid --version
 wget -L https://sourceforge.net/projects/schilytools/files/schily-2021-09-18.tar.bz2
 
 tar -xvf schily-2021-09-18.tar.bz2
