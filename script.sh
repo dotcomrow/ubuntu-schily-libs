@@ -14,4 +14,8 @@ ls -al mkisofs/OBJ/x86_64-linux-gcc/mkisofs
 
 sudo cp mkisofs/OBJ/x86_64-linux-gcc/mkisofs /usr/bin/mkisofs
 mkisofs --version
- 
+
+fallocate -l 6G test.img 
+
+mkisofs -o test.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -iso-level 3 -J -R -V "test" .
+

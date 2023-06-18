@@ -23,4 +23,65 @@ jobs:
         run: |
           chmod +x script.sh
           ./script.sh
+
+          - name: Create Tag and Push to GitHub
+            run: |
+                  tagname=test
+                  git config user.name ${{ github.actor }}
+                  git config user.email github-actions@github.com
+                  git tag -a $tagname -m $tagname
+                  git push --tags
+                  sudo cp extract.sh /tmp
+                  cd /var/tmp
+                  ls -al *.iso
+                  tar -czf CentOS-Stream.tar.gz openstack-iso.iso
+                  sudo split -b ${{ vars.RELEASE_SPLIT_SIZE }}M CentOS-Stream.tar.gz "ISO-archive.part"
+                  ls -lh ISO-archive.part*
+  
+          - name: Create release
+            uses: "actions/github-script@v6"
+            env:
+                VERSION: test
+                RELEASE_TAG: test
+            with:
+                  github-token: "${{ github.token }}"
+                  script: |
+                    try {
+                      const response = await github.rest.repos.createRelease({
+                        draft: false,
+                        generate_release_notes: true,
+                        name: process.env.RELEASE_TAG,
+                        owner: context.repo.owner,
+                        prerelease: false,
+                        repo: context.repo.repo,
+                        tag_name: process.env.RELEASE_TAG,
+                      });
+                      core.exportVariable('RELEASE_ID', response.data.id);
+                      core.exportVariable('RELEASE_UPLOAD_URL', response.data.upload_url);
+                    } catch (error) {
+                      core.setFailed(error.message);
+                    }
+  
+          - name: Upload extract to release
+            uses: svenstaro/upload-release-action@v2
+            env:
+              VERSION: test
+            with:
+                repo_token: ${{ github.token }}
+                file: /tmp/extract.sh
+                tag: test
+                overwrite: true
+                body: "Cloud Platform ISO Image Version test"
+      
+          - name: Upload binaries to release
+            uses: svenstaro/upload-release-action@v2
+            env:
+              VERSION: test
+            with:
+                repo_token: ${{ github.token }}
+                file: /var/tmp/ISO-archive.part*
+                file_glob: true
+                tag: test
+                overwrite: true
+                body: "Cloud Platform ISO Image Version test"
           
