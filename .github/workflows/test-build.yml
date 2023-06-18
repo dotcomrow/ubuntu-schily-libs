@@ -32,9 +32,6 @@ jobs:
                   git tag -a $tagname -m $tagname
                   git push --tags
                   ls -al /*.iso
-                  tar -czf CentOS-Stream.tar.gz /test.iso
-                  sudo split -b ${{ vars.RELEASE_SPLIT_SIZE }}M CentOS-Stream.tar.gz "ISO-archive.part"
-                  ls -lh ISO-archive.part*
   
       - name: Create release
         uses: "actions/github-script@v6"
@@ -66,7 +63,7 @@ jobs:
               VERSION: test
         with:
                 repo_token: ${{ github.token }}
-                file: ISO-archive.part*
+                file: /test.iso
                 file_glob: true
                 tag: test
                 overwrite: true
