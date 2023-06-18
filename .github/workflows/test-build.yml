@@ -34,7 +34,7 @@ jobs:
                   sudo cp extract.sh /tmp
                   cd /var/tmp
                   ls -al *.iso
-                  tar -czf CentOS-Stream.tar.gz openstack-iso.iso
+                  tar -czf CentOS-Stream.tar.gz test.iso
                   sudo split -b ${{ vars.RELEASE_SPLIT_SIZE }}M CentOS-Stream.tar.gz "ISO-archive.part"
                   ls -lh ISO-archive.part*
   
