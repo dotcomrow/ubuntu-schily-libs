@@ -32,6 +32,7 @@ jobs:
                   git tag -a $tagname -m $tagname
                   git push --tags
                   ls -al /*.iso
+                  sudo tar -czvf /test.iso.tar /test.iso
   
       - name: Create release
         uses: "actions/github-script@v6"
@@ -63,7 +64,7 @@ jobs:
               VERSION: test
         with:
                 repo_token: ${{ github.token }}
-                file: /test.iso
+                file: /test.iso.tar
                 file_glob: true
                 tag: test
                 overwrite: true
