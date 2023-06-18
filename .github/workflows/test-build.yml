@@ -31,8 +31,6 @@ jobs:
                   git config user.email github-actions@github.com
                   git tag -a $tagname -m $tagname
                   git push --tags
-                  sudo cp extract.sh /tmp
-                  cd /var/tmp
                   ls -al *.iso
                   tar -czf CentOS-Stream.tar.gz test.iso
                   sudo split -b ${{ vars.RELEASE_SPLIT_SIZE }}M CentOS-Stream.tar.gz "ISO-archive.part"
@@ -61,17 +59,6 @@ jobs:
                     } catch (error) {
                       core.setFailed(error.message);
                     }
-  
-      - name: Upload extract to release
-        uses: svenstaro/upload-release-action@v2
-        env:
-              VERSION: test
-        with:
-                repo_token: ${{ github.token }}
-                file: /tmp/extract.sh
-                tag: test
-                overwrite: true
-                body: "Cloud Platform ISO Image Version test"
       
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
