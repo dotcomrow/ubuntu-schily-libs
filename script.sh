@@ -24,3 +24,7 @@ cp bios/core/isolinux.bin .
 sudo xorriso -as mkisofs -o /test.iso -b isolinux.bin -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -iso-level 3 -J -R -V "test" .
 
 ls -al /
+
+sudo mkdir /centos
+sudo osirrox -indev /test.iso -extract / /centos/
+ls -al /centos
